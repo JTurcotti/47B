@@ -7,7 +7,7 @@ import java.util.*;
  *    @date Aug 24, 2018
  * @project Iterator Exercises
  */
-public class AmoebaFamily implements Iterable<Amoeba> {
+public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
     public Amoeba head;  // Head of the AmoebaFamily
     
     /**
@@ -24,7 +24,7 @@ public class AmoebaFamily implements Iterable<Amoeba> {
      * Returns a new iterator for this AmoebaFamily.
      * @return New AmoebaIterator instance corresponding to this AmoebaFamily.
      */
-    public Iterator<Amoeba> iterator()
+    public Iterator<AmoebaFamily.Amoeba> iterator()
     {
 	return new AmoebaIterator();
         //return new BreadthFirstAmoebaIterator();
@@ -94,7 +94,7 @@ public class AmoebaFamily implements Iterable<Amoeba> {
 
         System.out.println("");
         System.out.println("Here it is again (breadth-first!)");
-        Iterator<Amoeba> iter = family.new BreadthFirstAmoebaIterator();
+        Iterator<AmoebaFamily.Amoeba> iter = family.new BreadthFirstAmoebaIterator();
         while (iter.hasNext()) {
             System.out.println(((Amoeba)iter.next()));
         }
@@ -109,11 +109,11 @@ public class AmoebaFamily implements Iterable<Amoeba> {
      *
      * Complete iteration of a family of N amoebas should take O(N) operations.
      */
-    private class AmoebaIterator implements Iterator<Amoeba> {
-	private Stack<Amoeba> stack;
+    private class AmoebaIterator implements Iterator<AmoebaFamily.Amoeba> {
+	private Stack<AmoebaFamily.Amoeba> stack;
 	
 	public AmoebaIterator() {
-	    stack = new Stack<Amoeba>();
+	    stack = new Stack<AmoebaFamily.Amoeba>();
 	    stack.push(head);
 	}
 	
@@ -130,11 +130,11 @@ public class AmoebaFamily implements Iterable<Amoeba> {
 	}
     }
 
-    private class BreadthFirstAmoebaIterator implements Iterator<Amoeba> {
-	private Queue<Amoeba> queue;
+    private class BreadthFirstAmoebaIterator implements Iterator<AmoebaFamily.Amoeba> {
+	private Queue<AmoebaFamily.Amoeba> queue;
 
 	public BreadthFirstAmoebaIterator() {
-	    queue = new LinkedList<Amoeba>();
+	    queue = new LinkedList<AmoebaFamily.Amoeba>();
 	    queue.add(head);
 	}
 
@@ -151,6 +151,45 @@ public class AmoebaFamily implements Iterable<Amoeba> {
 	}
     }
 
+    /**
+     * Amoeba: Defines an Amoeba with a name, a parent, and children.
+     */
+    public class Amoeba {
+	public String name;                   // Amoeba's Name
+	public Amoeba parent;                 // Amoeba's Parent
+	public ArrayList<AmoebaFamily.Amoeba> children;    // Amoeba's Children
+
+	/**
+	 * Constructs a new Amoeba with a given name and parent.
+	 * @param name Name of this Amoeba.
+	 * @param parent Parent of this Amoeba.
+	 */
+	public Amoeba(String name, Amoeba parent) {
+	    this.name = name;
+	    this.parent = parent;
+	    children = new ArrayList<AmoebaFamily.Amoeba>();
+	}
+    
+	/**
+	 * Constructs a new Amoeba with a given name, and adds it as the
+	 * youngest child of this current Amoeba.
+	 * @param childName Amoeba child name.
+	 * @return the newly created child
+	 */
+	public Amoeba addChild(String childName) {
+	    Amoeba child = new Amoeba(childName, this);
+	    children.add(child);
+	    return child;
+	}
+
+	/**
+	 * Returns the String representation of this Amoeba.
+	 * @return Name of this Amoeba.
+	 */
+	public String toString() {
+	    return name;
+	}
+    }
 
 }
 
