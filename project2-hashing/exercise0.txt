@@ -1,0 +1,75 @@
+Code:
+
+public class numberMod3() {
+    int num;
+    public numberMod3(int n){
+        num = n;
+    }
+    public int hashCode() {
+        return num*3;
+    }
+    public boolean equals(numberMod3 other) {
+        return num%3 == other.getInt()%3;
+    }
+    public int getInt(){
+        return num;
+    }
+}
+
+Instructions:
+
+map.put(new numberMod3(1), 1)
+map.put(new numberMod3(2), 2)
+--diagram of hash map at this point
+map.put(new numberMod3(4), 4)
+map.put(new numberMod3(5), 5)
+map.put(new numberMod3(6), 6)
+--diagram of hash map at this point
+
+Result 1:
+
+B[0] -> null
+B[1] -> null
+B[2] -> null
+B[3] -> 1 -> null
+B[4] -> null
+B[5] -> null
+B[6] -> 2 -> null
+B[7] -> null
+
+Result 2:
+
+B[0] -> null
+B[1] -> null
+B[2] -> 6 -> null
+B[3] -> 1 -> null
+B[4] -> null
+B[5] -> null
+B[6] -> 2 -> null
+B[7] -> null
+B[8] -> null
+B[9] -> 3 -> null
+B[10] -> null
+B[11] -> null
+B[12] -> 4 -> null
+B[13] -> null
+B[14] -> null
+B[15] -> 5 -> null
+
+Problems:
+
+If the initialsize is divisible by 3, then only 1/3 of the entries will ever be used!
+Two objects with A.equals(B) are likely to not have A.hashCode() == B.hashCode() (in fact they only do if their wrapped numbers are equal)
+
+If the goal of the data structure is really just to store numbers mod 3, a boolean array is a better choice, as there are only three such numbers.
+
+Questions:
+
+Worst-case runtime: O(N) if every element collides (possible given as bad a hash function as the one above)
+Average-case runtime: O(1) because resizing maintains average density of elements in buckets
+Properties of a good hash function:
+-The images of any subset of the domain should appear uniform and random in the range, even in modulus
+-Equal objects should map to the same hash value
+
+
+
