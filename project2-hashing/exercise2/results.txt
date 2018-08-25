@@ -1,0 +1,9 @@
+Functions:
+
+0 - interpret board string as base-3 numeral: BLANK = 0, X = 1, O = 2
+1 - use hashCode() of board.toString()
+
+Function Num: 0; Time to insert all Tic-tac-toe boards = 35
+Function Num: 1; Time to insert all Tic-tac-toe boards = 52
+
+base-3 numeral method wins!
