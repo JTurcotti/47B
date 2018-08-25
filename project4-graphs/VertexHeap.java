@@ -53,12 +53,8 @@ public class VertexHeap {
     public Vertex remove() {
 	Vertex top = top();
 
-	display();
-	
 	swap(root, last);
 
-	display();
-	
 	if (last == root) {
 	    root = null;
 	    last = null;
@@ -85,30 +81,27 @@ public class VertexHeap {
 	
 	size--;
 
-	System.out.println("state of tree before bubble, after remove: ");
-	display();
-	//bubbleDown(root);
+	bubbleDown(root);
 
 	return top;
     }	    
 
     //swap values with parent until heap prperty is restored, O(log n)
     private void bubbleUp(Vertex v) {
-	if (v != root && v.distance < v.parent.distance) {
+	while (v != root && v.distance < v.parent.distance) {
 	    swap(v, v.parent);
-	    bubbleUp(v.parent);
 	}
     }
 
     //swap values with max child until heap property is restored, O(log n)
     private void bubbleDown(Vertex v) {
-	if (v != null && v.left != null) {
-	    if (v.right != null && v.right.distance < v.left.distance) {
+	while (v != null && v.left != null) {
+	    if (v.right != null && v.right.distance < v.left.distance && v.right.distance < v.distance) {
 		swap(v, v.right);
-		bubbleDown(v.right);
-	    } else {
+	    } else if (v.left.distance < v.distance) {
 		swap(v, v.left);
-		bubbleDown(v.left);
+	    } else {
+		break;
 	    }
 	}
     }
@@ -116,7 +109,6 @@ public class VertexHeap {
     
     //swap the positions of two vertices, O(1)
     private void swap(Vertex v, Vertex u) {
-	System.out.println("before swap, root is " + root.distance + " and last is " + last.distance);
 	
 	if (root == v) root = u;
 	else if (root == u) root = v;
@@ -124,23 +116,23 @@ public class VertexHeap {
 	if (last == v) last = u;
 	else if (last == u) last = v;
 
-	System.out.println("root: " + root.distance);
-	
 	//represent nearby nodes
 	Vertex parent0, left0, right0, parent1, left1, right1;
 	//represent position of v and u
 	boolean leftChild0, leftChild1;
 
+	//note special cases in following two sections for consecutive nodes
+	
 	//store v's position as 0 
-	parent0 = v.parent;
-	left0 = v.left;
-	right0 = v.right;
+	parent0 = (v.parent == u)? v: v.parent;
+	left0 = (v.left == u)? v: v.left;
+	right0 = (v.right == u)? v: v.right;
 	leftChild0 = ((v.parent != null) && (v == v.parent.left));
 
 	//store u's position as 1
-	parent1 = u.parent;
-	left1 = u.left;
-	right1 = u.right;
+	parent1 = (u.parent == v)? u: u.parent;
+	left1 = (u.left == v)? u: u.left;
+	right1 = (u.right == v)? u: u.right;
 	leftChild1 = ((u.parent != null) && (u == u.parent.left));
 
 	//give v position 1
@@ -179,8 +171,8 @@ public class VertexHeap {
 	    right0.parent = u;
 	}
 
-	System.out.println("after swap, root is " + root.distance + " and last is " + last.distance);
     }
+
     
     //display the heap, O(n)
     public void display()

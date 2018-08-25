@@ -10,7 +10,7 @@ public class VertexTree {
 	    heap.display();
 	}
 	for (int i = 0; i < 10; i++) {
-	    System.out.println(heap.remove().distance);
+	    System.out.println("Removing item: " + heap.remove().distance);
 	}
     }
 }
