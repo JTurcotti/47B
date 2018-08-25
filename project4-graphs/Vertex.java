@@ -22,6 +22,8 @@ class Vertex {
     //when a node is added to MST with this as parent, it is added to children
     private List<Vertex> children = new LinkedList<>();
 
+    public List<Vertex> children() {return children;}
+
     //MST methods:
 
     //attaches this vertex to the tree at its godparent! hallelujah!

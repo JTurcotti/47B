@@ -23,10 +23,11 @@ public class VertexTree {
     }
     
     private boolean subtreeContains(Vertex root, Vertex v) {
-	return (root != null) &&
-	    ((root == v) ||
-	     subtreeContains(root.left, v) ||
-	     subtreeContains(root.right, v));
+	if (root == v) return true;
+	for (Vertex child: root.children())
+	    if (subtreeContains(child, v))
+		return true;
+	return false;
     }
     
     public boolean test() {
