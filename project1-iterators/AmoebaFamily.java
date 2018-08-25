@@ -129,7 +129,9 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
 	    return next;
 	}
     }
-
+    /**
+     *provides an Iterator object similar to the default AmoebaFamily iterator, but proceeding breadth-first not depth-first
+     */
     private class BreadthFirstAmoebaIterator implements Iterator<AmoebaFamily.Amoeba> {
 	private Queue<AmoebaFamily.Amoeba> queue;
 
