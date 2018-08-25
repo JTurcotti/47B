@@ -11,33 +11,40 @@ class Vertex {
     Vertex right = null;
     Vertex parent = null;
 
+    public Vertex(Vertex g) {
+	godparent = g;
+    }
 
     //following two fields represent MST strucutre
     //represents the node that 'added' this one to the heap, overrwritten whenever distance is updated, becomes parent in MST
-    Vertex godparent = null;
+    Vertex godparent;
+    boolean inTree = false;
     //when a node is added to MST with this as parent, it is added to children
     private List<Vertex> children = new LinkedList<>();
 
     //MST methods:
-    
-    public void setChild(Vertex v) {
-	assert(v.godparent == this): "checking node add to MST";
-	children.add(v);
+
+    //attaches this vertex to the tree at its godparent! hallelujah!
+    public void addToTree() {
+	godparent.children.add(this);
+	inTree = true;
     }
 
     //GRAPH methods:
+
+    public static void addEdge(Vertex v, Vertex u, int distance) {
+	v.connections.put(u, distance);
+	u.connections.put(v, distance);
+    }
     
     public Set<Vertex> neighbors() {
 	return connections.keySet();
     }
 
     public int distanceTo(Vertex v) {
-	if (connections.containsKey(v)) {
-	    return connections.get(v);
-	} else {
-	    //infinite distance = not connected
-	    return Integer.MAX_VALUE;
-	}
+	assert connections.containsKey(v): "checking distance to unconnected vertex";
+	return connections.get(v);
+
     }
 
 

@@ -14,7 +14,7 @@ public class VertexHeap {
     //returns the max element, if it exists, O(1)
     public Vertex top() {
 	if (isEmpty()) {
-	    throw new NoSuchElementException("Heap is empty!");
+	    return null;
 	} else {
 	    return root;
 	}
@@ -51,6 +51,10 @@ public class VertexHeap {
 
     //removes top value from heap and returns it, log n (going up) + log n (going down) + log n (bubbling down) = O(log n)
     public Vertex remove() {
+	if (isEmpty()) {
+	    return null;
+	}
+	
 	Vertex top = top();
 
 	swap(root, last);
@@ -173,17 +177,26 @@ public class VertexHeap {
 
     }
 
+    //changes the distance of a vertex
+    public void changeDistance(Vertex v, int distance) {
+	if (v.distance < distance) {
+	    v.distance = distance;
+	    bubbleDown(v);
+	} else if (v.distance > distance) {
+	    v.distance = distance;
+	    bubbleUp(v);
+	}
+    }
+
     
     //display the heap, O(n)
-    public void display()
-    {
+    public void display() {
         System.out.println("Heap (" + size + " elements):");
         displayHelper(root, 0);
         System.out.println();
     }
 
-    private void displayHelper(Vertex v, int indentLevel)
-    {
+    private void displayHelper(Vertex v, int indentLevel) {
 	if (v == null) return;
 
         displayHelper(v.right, indentLevel + 1);
