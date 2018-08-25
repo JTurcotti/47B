@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * AmoebaFamily: TODO: Write your class description here.
@@ -9,9 +7,8 @@ import java.util.Stack;
  *    @date Aug 24, 2018
  * @project Iterator Exercises
  */
-public class AmoebaFamily
-{
-    private Amoeba head;  // Head of the AmoebaFamily
+public class AmoebaFamily implements Iterable<Amoeba> {
+    public Amoeba head;  // Head of the AmoebaFamily
     
     /**
      * Constructs a new AmoebaFamily containing a single Amoeba (the head of
@@ -27,9 +24,10 @@ public class AmoebaFamily
      * Returns a new iterator for this AmoebaFamily.
      * @return New AmoebaIterator instance corresponding to this AmoebaFamily.
      */
-    public AmoebaIterator iterator()
+    public Iterator<Amoeba> iterator()
     {
-        return new AmoebaIterator();
+	return new AmoebaIterator();
+        //return new BreadthFirstAmoebaIterator();
     }
     
     /**
@@ -41,7 +39,18 @@ public class AmoebaFamily
      */
     public void addChild(String parentName, String childName)
     {
-        // TODO: You supply this code for Exercise 1.
+	Amoeba parent = null;
+	for (Amoeba amoeba: this) {
+	    if (parentName.equals(amoeba.name)) {
+		parent = amoeba;
+		break;
+	    }
+	}
+	
+	if (parent != null) {
+	    parent.addChild(childName);
+	}
+	
     }
     
     /**
@@ -53,11 +62,12 @@ public class AmoebaFamily
      *     Amos McCoy, mom/dad, me, Mike, Bart, Lisa, Homer, Marge, George,
      *     Martha, Ben, Leslie
      */
-    public void print()
-    {
-        // TODO: You supply this code for Exercise 2.
+    public void print() {
+        for (Amoeba amoeba: this) {
+	    System.out.println(amoeba);
+	}
     }
-    
+
     /**
      * Construct a family of Amoebas, and then print the family tree using the
      * print() method as well as the AmoebaIterator.
@@ -78,17 +88,69 @@ public class AmoebaFamily
         family.addChild("Marge", "George");
         family.addChild("Marge", "Martha");
 
-        System.out.println("Here's the family:");
+        System.out.println("Here's the family depth-first:");
         family.print();
+	
 
-//        System.out.println("");
-//        System.out.println("Here it is again!");
-//        AmoebaIterator iter = family.iterator();
-//        while (iter.hasNext())
-//        {
-//            System.out.println(((Amoeba)iter.next()));
-//        }
+        System.out.println("");
+        System.out.println("Here it is again (breadth-first!)");
+        Iterator<Amoeba> iter = family.new BreadthFirstAmoebaIterator();
+        while (iter.hasNext()) {
+            System.out.println(((Amoeba)iter.next()));
+        }
     }
+    /**
+     * AmoebaIterator: Amoebas in the family are iterated over in preorder,
+     * with oldest children first. Members of the family constructed with the
+     * main program above should be iterated over in the following sequence:
+     *
+     *     Amos McCoy, mom/dad, me, Mike, Bart, Lisa, Homer, Marge, George,
+     *     Martha, Ben, Leslie
+     *
+     * Complete iteration of a family of N amoebas should take O(N) operations.
+     */
+    private class AmoebaIterator implements Iterator<Amoeba> {
+	private Stack<Amoeba> stack;
+	
+	public AmoebaIterator() {
+	    stack = new Stack<Amoeba>();
+	    stack.push(head);
+	}
+	
+	public boolean hasNext() {
+	    return !stack.empty();
+	}
+	
+	public Amoeba next() {
+	    Amoeba next = stack.pop();
+	    for (int i = next.children.size() - 1; i >= 0; i-- ) {
+		stack.push(next.children.get(i));
+	    }
+	    return next;
+	}
+    }
+
+    private class BreadthFirstAmoebaIterator implements Iterator<Amoeba> {
+	private Queue<Amoeba> queue;
+
+	public BreadthFirstAmoebaIterator() {
+	    queue = new LinkedList<Amoeba>();
+	    queue.add(head);
+	}
+
+	public boolean hasNext() {
+	    return queue.peek() != null;
+	}
+
+	public Amoeba next() {
+	    Amoeba next = queue.remove();
+	    for (Amoeba amoeba: next.children) {
+		queue.add(amoeba);
+	    }
+	    return next;
+	}
+    }
+
 
 }
 
