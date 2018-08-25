@@ -1,0 +1,302 @@
+Results:
+
+
+Best:
+Function 3 - A variant on the GNU-cc1 algorithm.
+Comps (truncutated): 13 13 13 13 13 13 13 12 13 12 12
+Std Dev (avg): 7.75
+
+Second Place
+Function 4 - The String hashCode member function.
+Comps: 13 13 13 13 13 13 13 13 12 13 12
+Std Dev: 7.77
+
+Third Place:
+Function 2 - A variant on the GNU-cpp algorithm.
+Comps: 16 13 13 13 14 13 13 13 15 13 13
+
+Fourth Place:
+Function 1 - A variant on the ETH algorithm.
+Comps: 24 17 18 16 34 31 18 17 19 16 24
+
+
+
+Data:
+
+Table Size: 1040; Function Num: 1; Time to hash 25143 words is 25 milliseconds.
+Number of elements  = 25143
+Maximum list length = 166
+Optimal list length = 25
+Average # compares  = 24.825796127319336
+Standard deviation  = 24.684877403409043
+Table Size: 1041; Function Num: 1; Time to hash 25143 words is 16 milliseconds.
+Number of elements  = 25143
+Maximum list length = 86
+Optimal list length = 25
+Average # compares  = 17.269060134887695
+Standard deviation  = 12.904406439539063
+Table Size: 1042; Function Num: 1; Time to hash 25143 words is 32 milliseconds.
+Number of elements  = 25143
+Maximum list length = 81
+Optimal list length = 25
+Average # compares  = 18.512189865112305
+Standard deviation  = 13.97091368913932
+Table Size: 1043; Function Num: 1; Time to hash 25143 words is 17 milliseconds.
+Number of elements  = 25143
+Maximum list length = 76
+Optimal list length = 25
+Average # compares  = 16.732013702392578
+Standard deviation  = 12.505598501544458
+Table Size: 1044; Function Num: 1; Time to hash 25143 words is 27 milliseconds.
+Number of elements  = 25143
+Maximum list length = 328
+Optimal list length = 25
+Average # compares  = 34.15726089477539
+Standard deviation  = 52.333549090861496
+Table Size: 1045; Function Num: 1; Time to hash 25143 words is 23 milliseconds.
+Number of elements  = 25143
+Maximum list length = 244
+Optimal list length = 25
+Average # compares  = 31.449588775634766
+Standard deviation  = 42.821871177374064
+Table Size: 1046; Function Num: 1; Time to hash 25143 words is 16 milliseconds.
+Number of elements  = 25143
+Maximum list length = 91
+Optimal list length = 25
+Average # compares  = 18.67144012451172
+Standard deviation  = 14.37624612543189
+Table Size: 1047; Function Num: 1; Time to hash 25143 words is 26 milliseconds.
+Number of elements  = 25143
+Maximum list length = 83
+Optimal list length = 25
+Average # compares  = 17.24575424194336
+Standard deviation  = 13.005847570802768
+Table Size: 1048; Function Num: 1; Time to hash 25143 words is 17 milliseconds.
+Number of elements  = 25143
+Maximum list length = 95
+Optimal list length = 24
+Average # compares  = 19.851728439331055
+Standard deviation  = 15.773960780843721
+Table Size: 1049; Function Num: 1; Time to hash 25143 words is 14 milliseconds.
+Number of elements  = 25143
+Maximum list length = 78
+Optimal list length = 24
+Average # compares  = 16.526229858398438
+Standard deviation  = 12.347193581575025
+Table Size: 1050; Function Num: 1; Time to hash 25143 words is 20 milliseconds.
+Number of elements  = 25143
+Maximum list length = 157
+Optimal list length = 24
+Average # compares  = 24.428190231323242
+Standard deviation  = 24.25277923883429
+
+
+
+
+Table Size: 1040; Function Num: 2; Time to hash 25143 words is 15 milliseconds.
+Number of elements  = 25143
+Maximum list length = 67
+Optimal list length = 25
+Average # compares  = 16.293560028076172
+Standard deviation  = 11.913522748115788
+Table Size: 1041; Function Num: 2; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 43
+Optimal list length = 25
+Average # compares  = 13.139204025268555
+Standard deviation  = 7.890680634087666
+Table Size: 1042; Function Num: 2; Time to hash 25143 words is 11 milliseconds.
+Number of elements  = 25143
+Maximum list length = 47
+Optimal list length = 25
+Average # compares  = 13.256214141845703
+Standard deviation  = 8.084408521548648
+Table Size: 1043; Function Num: 2; Time to hash 25143 words is 13 milliseconds.
+Number of elements  = 25143
+Maximum list length = 40
+Optimal list length = 25
+Average # compares  = 13.077675819396973
+Standard deviation  = 7.80722988434817
+Table Size: 1044; Function Num: 2; Time to hash 25143 words is 17 milliseconds.
+Number of elements  = 25143
+Maximum list length = 55
+Optimal list length = 25
+Average # compares  = 14.658234596252441
+Standard deviation  = 10.218272576503743
+Table Size: 1045; Function Num: 2; Time to hash 25143 words is 15 milliseconds.
+Number of elements  = 25143
+Maximum list length = 42
+Optimal list length = 25
+Average # compares  = 13.055642127990723
+Standard deviation  = 7.813446749327436
+Table Size: 1046; Function Num: 2; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 43
+Optimal list length = 25
+Average # compares  = 13.210158348083496
+Standard deviation  = 8.047618160202077
+Table Size: 1047; Function Num: 2; Time to hash 25143 words is 15 milliseconds.
+Number of elements  = 25143
+Maximum list length = 46
+Optimal list length = 25
+Average # compares  = 13.09613037109375
+Standard deviation  = 7.897970507011872
+Table Size: 1048; Function Num: 2; Time to hash 25143 words is 27 milliseconds.
+Number of elements  = 25143
+Maximum list length = 58
+Optimal list length = 24
+Average # compares  = 15.173487663269043
+Standard deviation  = 10.52305691572698
+Table Size: 1049; Function Num: 2; Time to hash 25143 words is 17 milliseconds.
+Number of elements  = 25143
+Maximum list length = 49
+Optimal list length = 24
+Average # compares  = 13.036272048950195
+Standard deviation  = 7.831248331181126
+Table Size: 1050; Function Num: 2; Time to hash 25143 words is 23 milliseconds.
+Number of elements  = 25143
+Maximum list length = 48
+Optimal list length = 24
+Average # compares  = 13.15065860748291
+Standard deviation  = 8.011165944373529
+
+
+
+
+Table Size: 1040; Function Num: 3; Time to hash 25143 words is 21 milliseconds.
+Number of elements  = 25143
+Maximum list length = 42
+Optimal list length = 25
+Average # compares  = 13.091516494750977
+Standard deviation  = 7.790546570381103
+Table Size: 1041; Function Num: 3; Time to hash 25143 words is 16 milliseconds.
+Number of elements  = 25143
+Maximum list length = 41
+Optimal list length = 25
+Average # compares  = 13.070635795593262
+Standard deviation  = 7.782210942084309
+Table Size: 1042; Function Num: 3; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 45
+Optimal list length = 25
+Average # compares  = 13.107624053955078
+Standard deviation  = 7.860512335375843
+Table Size: 1043; Function Num: 3; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 41
+Optimal list length = 25
+Average # compares  = 13.036869049072266
+Standard deviation  = 7.750783668343877
+Table Size: 1044; Function Num: 3; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 45
+Optimal list length = 25
+Average # compares  = 13.044902801513672
+Standard deviation  = 7.770206565580656
+Table Size: 1045; Function Num: 3; Time to hash 25143 words is 16 milliseconds.
+Number of elements  = 25143
+Maximum list length = 39
+Optimal list length = 25
+Average # compares  = 13.034363746643066
+Standard deviation  = 7.7699085918912685
+Table Size: 1046; Function Num: 3; Time to hash 25143 words is 14 milliseconds.
+Number of elements  = 25143
+Maximum list length = 41
+Optimal list length = 25
+Average # compares  = 13.018454551696777
+Standard deviation  = 7.755289033344091
+Table Size: 1047; Function Num: 3; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 41
+Optimal list length = 25
+Average # compares  = 12.916000366210938
+Standard deviation  = 7.60545886973207
+Table Size: 1048; Function Num: 3; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 42
+Optimal list length = 24
+Average # compares  = 13.002426147460938
+Standard deviation  = 7.757097804590504
+Table Size: 1049; Function Num: 3; Time to hash 25143 words is 17 milliseconds.
+Number of elements  = 25143
+Maximum list length = 43
+Optimal list length = 24
+Average # compares  = 12.996221542358398
+Standard deviation  = 7.767032778794493
+Table Size: 1050; Function Num: 3; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 40
+Optimal list length = 24
+Average # compares  = 12.925545692443848
+Standard deviation  = 7.653985374546783
+
+
+
+
+Table Size: 1040; Function Num: 4; Time to hash 25143 words is 17 milliseconds.
+Number of elements  = 25143
+Maximum list length = 40
+Optimal list length = 25
+Average # compares  = 13.075885772705078
+Standard deviation  = 7.77594438049824
+Table Size: 1041; Function Num: 4; Time to hash 25143 words is 11 milliseconds.
+Number of elements  = 25143
+Maximum list length = 43
+Optimal list length = 25
+Average # compares  = 13.069999694824219
+Standard deviation  = 7.773799508003952
+Table Size: 1042; Function Num: 4; Time to hash 25143 words is 21 milliseconds.
+Number of elements  = 25143
+Maximum list length = 39
+Optimal list length = 25
+Average # compares  = 13.051902770996094
+Standard deviation  = 7.769118676824549
+Table Size: 1043; Function Num: 4; Time to hash 25143 words is 15 milliseconds.
+Number of elements  = 25143
+Maximum list length = 41
+Optimal list length = 25
+Average # compares  = 13.05158519744873
+Standard deviation  = 7.781186848591055
+Table Size: 1044; Function Num: 4; Time to hash 25143 words is 14 milliseconds.
+Number of elements  = 25143
+Maximum list length = 39
+Optimal list length = 25
+Average # compares  = 13.030385971069336
+Standard deviation  = 7.739193568599825
+Table Size: 1045; Function Num: 4; Time to hash 25143 words is 12 milliseconds.
+Number of elements  = 25143
+Maximum list length = 39
+Optimal list length = 25
+Average # compares  = 13.040011405944824
+Standard deviation  = 7.775019202313624
+Table Size: 1046; Function Num: 4; Time to hash 25143 words is 27 milliseconds.
+Number of elements  = 25143
+Maximum list length = 45
+Optimal list length = 25
+Average # compares  = 13.001193046569824
+Standard deviation  = 7.72790788782778
+Table Size: 1047; Function Num: 4; Time to hash 25143 words is 26 milliseconds.
+Number of elements  = 25143
+Maximum list length = 41
+Optimal list length = 25
+Average # compares  = 13.057868957519531
+Standard deviation  = 7.825201317848225
+Table Size: 1048; Function Num: 4; Time to hash 25143 words is 18 milliseconds.
+Number of elements  = 25143
+Maximum list length = 40
+Optimal list length = 24
+Average # compares  = 12.991090774536133
+Standard deviation  = 7.725890353230582
+Table Size: 1049; Function Num: 4; Time to hash 25143 words is 13 milliseconds.
+Number of elements  = 25143
+Maximum list length = 39
+Optimal list length = 24
+Average # compares  = 13.004773139953613
+Standard deviation  = 7.760702195987247
+Table Size: 1050; Function Num: 4; Time to hash 25143 words is 22 milliseconds.
+Number of elements  = 25143
+Maximum list length = 42
+Optimal list length = 24
+Average # compares  = 12.972795486450195
+Standard deviation  = 7.733478173014451
+
