@@ -5,6 +5,7 @@ public class JugSolver
     private static boolean DEBUGGING = false;
     private int desired;
     private int capacity[];
+    private Hashtable<JugContents, Boolean> history = new Hashtable<>();
     
     public JugSolver(int amt0, int amt1, int amt2, int d)
     {
@@ -37,7 +38,12 @@ public class JugSolver
             return true;
         }
 
-        // TODO: You add some code here.
+        if (history.containsKey(b)) {
+	    return history.get(b);
+	} else {
+	    history.put(b, false);
+	}
+
 
         for (int i = 0; i < 3; i++)
         {
@@ -61,6 +67,7 @@ public class JugSolver
      */
     public static void main(String[] args) throws Exception
     {
+
         if (args.length != 6)
         {
             System.err.println("Wrong number of arguments.");
@@ -72,7 +79,10 @@ public class JugSolver
             Integer.parseInt(args[5]));
         JugContents init = puzzle.new JugContents(Integer.parseInt(args[3]),
             Integer.parseInt(args[4]), 0);
-        System.out.println(puzzle.tryPouring(init));
+
+	JugContents a = puzzle.new JugContents(1, 1, 1);
+	JugContents b = puzzle.new JugContents(a);
+	System.out.println(puzzle.tryPouring(init));
     }
     
     private static void debugPrint(String s)
@@ -123,13 +133,27 @@ public class JugSolver
             afterPour.jugs[to] += amtPoured;
             return afterPour;
         }
-        
+       
         public String toString()
         {
             return "Configuration = (" + jugs[0] + "," + jugs[1] + "," + jugs[2]
                    + ")";
         }
+
+	@Override
+	public boolean equals(Object O) {
+	    if (O instanceof JugContents) {
+		JugContents J = (JugContents) O;
+		return Arrays.equals(J.jugs, jugs);
+	    } else {
+		return false;
+	    }
+	}
+
+	@Override
+	public int hashCode() {
+	    return jugs[0] + (capacity[0] * jugs[1]) + (capacity[1] * jugs[2]);
+	}
         
-        // TODO: You add more code to this class.
     }
 }
