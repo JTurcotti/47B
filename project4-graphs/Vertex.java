@@ -11,13 +11,16 @@ class Vertex {
     Vertex right = null;
     Vertex parent = null;
 
-    public Vertex(Vertex g) {
-	godparent = g;
-    }
-
     //following two fields represent MST strucutre
     //represents the node that 'added' this one to the heap, overrwritten whenever distance is updated, becomes parent in MST
-    Vertex godparent;
+    private Vertex godparent;
+
+    public void setGodparent(Vertex v) {
+	//godparent == this case is the root
+	godparent = v;
+    }
+	    
+    
     boolean inTree = false;
     //when a node is added to MST with this as parent, it is added to children
     private List<Vertex> children = new LinkedList<>();
@@ -28,7 +31,9 @@ class Vertex {
 
     //attaches this vertex to the tree at its godparent! hallelujah!
     public void addToTree() {
-	godparent.children.add(this);
+	//godparent == this case is the root
+	assert godparent == this || godparent.neighbors().contains(this): "attaching to godparent";
+	if (godparent != this) godparent.children.add(this);
 	inTree = true;
     }
 
