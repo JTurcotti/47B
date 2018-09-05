@@ -1,25 +1,25 @@
 import java.util.*;
 import java.io.*;
+import java.math.BigInteger;
 
-
-//instance of class stores its size and its initial and final configurations. methods are provided for manipulating board states (represented as arrays of bitboards (long[] s)) in this context
+//instance of class stores its size and its initial and final configurations. methods are provided for manipulating board states (represented as arrays of bitboards (BigInteger[]'s)) in this context
 public class Board {
     private int rows, cols;
     private int num_blocks = 0;
     private int num_final_blocks = 0;
 
     //reference initial and final (desired) blocks given
-    private long[] initial_blocks = new long[MAX_BLOCKS];
-    private long[] final_blocks = new long[MAX_BLOCKS];
+    private BigInteger[] initial_blocks = new BigInteger[MAX_BLOCKS];
+    private BigInteger[] final_blocks = new BigInteger[MAX_BLOCKS];
     
-    private long[] edges = new long[4];
+    private BigInteger[] edges = new BigInteger[4];
     static final int DOWN = 0;
     static final int LEFT = 1;
     static final int UP = 2;
     static final int RIGHT = 3;
-    static final int MAX_BLOCKS = 64;
+    static final int MAX_BLOCKS = 128;
     //represents invalid state of board, used as return value;
-    static final long[] INVALID = new long[1];
+    static final BigInteger[] INVALID = new BigInteger[1];
 
     //check if (row, col) is on this board
     private boolean inRange(int row, int col) {
@@ -28,25 +28,25 @@ public class Board {
     }
 	    
     //convert block data to a corresponding bitBoard
-    private long toBits(int length, int width, int row, int col) {
+    private BigInteger toBits(int length, int width, int row, int col) {
 	assert inRange(row, col) &&
 	    inRange(row + length, col + width);
 
-	long bits = 0;
+	BigInteger bits = BigInteger.ZERO;
 	for (int r = row; r < row + length; r++)
 	    for (int c = col; c < col + width; c++)
-		bits += 1 << (c + r * cols);
+		bits = bits.add((BigInteger.ONE).shiftLeft(c + r * cols));
 
 	return bits;
     }
 
     //check if given bitboard satisfies the final conditions
     //IN NEED OF OPTIMIZATION
-    private boolean isFinal(long[] blocks) {
+    private boolean isFinal(BigInteger[] blocks) {
 	int num_found = 0;
 	for (int i = 0; i < num_blocks; i++) {
 	    for (int f = 0; f < num_final_blocks; f++) {
-		if (blocks[i] == final_blocks[f]) {
+		if ((blocks[i]).equals(final_blocks[f])) {
 		    num_found++;
 		}
 	    }
@@ -54,40 +54,44 @@ public class Board {
 	return (num_found == num_final_blocks);
     }
 
+    private boolean isZero(BigInteger bits) {
+	return bits.equals(BigInteger.ZERO);
+    }
+    
     //returns a bitboard representing the given shift on blocks, or INVALID
     //or INVALID if no such move is possible
-    private long[] shift(long[] blocks, int block, int direction) {
+    private BigInteger[] shift(BigInteger[] blocks, int block, int direction) {
 	
 	//check if block is already at edge
-	if ((blocks[block] & edges[direction]) != 0)
+	if (!isZero((blocks[block]).and(edges[direction])))
 	    return INVALID;
 
-	long shiftedBlock = 0;
+	BigInteger shiftedBlock = BigInteger.ZERO;
 	switch (direction) {
 	case DOWN:
-	    shiftedBlock = blocks[block] >>> cols;
+	    shiftedBlock = blocks[block].shiftRight(cols);
 	    break;
 	case LEFT:
-	    shiftedBlock = blocks[block] << 1;
+	    shiftedBlock = blocks[block].shiftLeft(1);
 	    break;
 	case UP:
-	    shiftedBlock = blocks[block] << cols;
+	    shiftedBlock = blocks[block].shiftLeft(cols);
 	    break;
 	case RIGHT:
-	    shiftedBlock = blocks[block] >>> 1;
+	    shiftedBlock = blocks[block].shiftRight(1);
 	    break;
 	}
 
 	//generate set of all cells occupied by other blocks
-	long collisions = 0;
+	BigInteger collisions = BigInteger.ZERO;
 	for (int i = 0; i < block; i++)
-	    collisions |= blocks[i];
+	    collisions = collisions.or(blocks[i]);
 	for (int i = block + 1; i < num_blocks; i++)
-	    collisions |= blocks[i];
+	    collisions  = collisions.or(blocks[i]);
 
 	//check for collisions with other blocks
-	if ((collisions & shiftedBlock) == 0) {
-	    long[] shifted = new long[num_blocks];
+	if (isZero(collisions.and(shiftedBlock))) {
+	    BigInteger[] shifted = new BigInteger[num_blocks];
 	    System.arraycopy(blocks, 0, shifted, 0, num_blocks);
 	    shifted[block] = shiftedBlock;
 	    return shifted;
@@ -110,18 +114,18 @@ public class Board {
     }
 
     //return the row and column of the bottom lefthand corner of the given bitboard's represented block
-    private int bitsToRow(long bits) {
-	return ((int) (Math.log(bits & -bits)/Math.log(2))) / cols;
+    private int bitsToRow(BigInteger bits) {
+	return bits.getLowestSetBit() / cols;
     }
 
-    private int bitsToCol(long bits) {
-    	return ((int) (Math.log(bits & -bits)/Math.log(2))) % cols;
+    private int bitsToCol(BigInteger bits) {
+	return bits.getLowestSetBit() % cols;
     }
 		
 
     
     //can isFinal be reached from the given set of blocks? tries all possible shifts from this position (and checks this position itself) to find out!
-    private boolean tryShifting(long[] blocks, Set<Integer> tried, LinkedList<String> instructions) {
+    private boolean tryShifting(BigInteger[] blocks, Set<Integer> tried, LinkedList<String> instructions) {
 	//check if this is not a valid state
 	if (blocks == INVALID)
 	    return false;
@@ -220,7 +224,7 @@ public class Board {
 	System.out.println("Check reached: " + num);
     }
 
-    public String blocksToString(long[] blocks) {
+    public String blocksToString(BigInteger[] blocks) {
 	if (blocks == INVALID)
 	    return "INVALID";
 	
@@ -230,7 +234,7 @@ public class Board {
 	    for (int c = 0; c < cols; c++) {
 		s = "_";
 		for (int i = 0; i < num_blocks; i++)
-		    if ((blocks[i] & toBits(1, 1, r, c)) != 0)
+		    if (!isZero( (blocks[i]).and(toBits(1, 1, r, c)) ))
 			s = "" + i;
 		out += s;
 	    }
@@ -239,11 +243,11 @@ public class Board {
 	return out;
     }
 
-    public String bitsToString(long bits) {
+    public String bitsToString(BigInteger bits) {
 	String out = "";
 	for (int r = 0; r < rows; r++) {
 	    for (int c = 0; c < cols; c++) {
-		out += ((bits & toBits(1, 1, r, c)) == 0)? 0: 1;
+		out += isZero( bits.and(toBits(1, 1, r, c)) )? 0: 1;
 	    }
 	    out += "\n";
 	}
@@ -256,6 +260,7 @@ public class Board {
 	    return;
 	}
 
+	
 	Board b = new Board(args[0], args[1]);
 
 	/*
