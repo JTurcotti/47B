@@ -100,14 +100,80 @@ public class Board {
 	}
     }
 
+    class State {
+	BigInteger[] blocks;
+	State previous;
+	String instruction;
+
+	public State(BigInteger[] blocks, State previous, String instruction) {
+	    this.blocks = blocks;
+	    this.previous = previous;
+	    this.instruction = instruction;
+	}
+    }
+    
+    public void solveBreadthFirst() {
+	Set<Integer> tried = new HashSet<>();
+	Queue<State> frontier = new LinkedList<>();
+
+	frontier.add(new State(initial_blocks, null, null));
+
+	State winner = null;
+
+	while (frontier.peek() != null) {
+	    State state = frontier.remove();
+
+	    //check if state is invalid
+	    if (state.blocks == INVALID) continue;
+
+	    //check if state has already been checked
+	    int hash = Arrays.hashCode(Arrays.copyOfRange(state.blocks, 0, num_blocks));
+	    if (tried.contains(hash)) continue;
+	    tried.add(hash);
+
+	    //System.out.println("Testing blocks:\n" + blocksToString(state.blocks));
+
+	    //check if termination condition reached
+	    if (isFinal(state.blocks)) {
+		winner = state;
+		break;
+	    }
+
+	    for (int block = 0; block < num_blocks; block++) {
+		//DOWN
+		frontier.add(new State(shift(state.blocks, block, DOWN), state, (bitsToRow(state.blocks[block]) + " " + bitsToCol(state.blocks[block]) + " " + (bitsToRow(state.blocks[block]) - 1) + " " + bitsToCol(state.blocks[block]))));
+
+		//LEFT
+		frontier.add(new State(shift(state.blocks, block, LEFT), state, (bitsToRow(state.blocks[block]) + " " + bitsToCol(state.blocks[block]) + " " + bitsToRow(state.blocks[block]) + " " + (bitsToCol(state.blocks[block]) + 1) )));
+
+		//UP
+		frontier.add(new State(shift(state.blocks, block, UP), state, (bitsToRow(state.blocks[block]) + " " + bitsToCol(state.blocks[block]) + " " + (bitsToRow(state.blocks[block]) + 1) + " " + bitsToCol(state.blocks[block]))));
+
+		//RIGHT
+		frontier.add(new State(shift(state.blocks, block, RIGHT), state, (bitsToRow(state.blocks[block]) + " " + bitsToCol(state.blocks[block]) + " " + bitsToRow(state.blocks[block]) + " " + (bitsToCol(state.blocks[block]) - 1))));
+	    }
+	}
+
+	if (winner == null) {
+	    exit("no solution found");
+	} else {
+	    LinkedList<String> instructions = new LinkedList<>();
+	    for (; winner.instruction != null; winner = winner.previous)
+		instructions.addFirst(winner.instruction);
+	    for (String instruction: instructions)
+		System.out.println(instruction);
+	}
+    }
+
+
     //attempts to solve this board, starting from the initial position and seeking satisfaction of isFinal
     public void solve() {
 	Set<Integer> tried = new HashSet<>();
 	LinkedList<String> instructions = new LinkedList<>();
 	
 	if (tryShifting(initial_blocks, tried, instructions)) {
-	    for (String s: instructions)
-		System.out.println(s);
+	    for (String instruction: instructions)
+		System.out.println(instruction);
 	} else {
 	    exit("no solution found");
 	}
@@ -263,11 +329,12 @@ public class Board {
 	Board b = new Board(args[0], args[1]);
 
 	/*
-	System.out.println(b.blocksToString(b.initial_blocks));
-	System.out.println(b.blocksToString(b.final_blocks));
+	System.out.println("Initial:\n" + b.blocksToString(b.initial_blocks));
+	System.out.println("Final:\n" + b.blocksToString(b.final_blocks));
 	*/
 
-	b.solve();
+	b.solveBreadthFirst();
+
 	System.exit(0);
     }
 		
