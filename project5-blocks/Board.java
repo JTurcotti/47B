@@ -125,11 +125,12 @@ public class Board {
 	//check if this is not a valid state
 	if (blocks == INVALID)
 	    return false;
-	
+
+	int hash = Arrays.hashCode(Arrays.copyOfRange(blocks, 0, num_blocks));
 	//check if already checked blocks
-	if (tried.contains(Arrays.hashCode(blocks)))
+	if (tried.contains(hash))
 	    return false;
-	tried.add(Arrays.hashCode(blocks));
+	tried.add(hash);
 
 	//check if blocks meet final conditions
 	if (isFinal(blocks))
@@ -263,6 +264,7 @@ public class Board {
 	*/
 
 	b.solve();
+	System.exit(0);
     }
 		
 }
