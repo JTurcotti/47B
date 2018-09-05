@@ -17,7 +17,7 @@ public class Board {
     static final int LEFT = 1;
     static final int UP = 2;
     static final int RIGHT = 3;
-    static final int MAX_BLOCKS = 128;
+    static final int MAX_BLOCKS = 256;
     //represents invalid state of board, used as return value;
     static final BigInteger[] INVALID = new BigInteger[1];
 
@@ -171,10 +171,9 @@ public class Board {
 	    rows = scanner.nextInt();
 	    cols = scanner.nextInt();
 
-	    if (rows * cols > 64)
-		exit("Input board too large: maximum supported size is 64 cells");
-
 	    while (scanner.hasNextInt()) {
+		if (num_blocks == MAX_BLOCKS)
+		    exit("Maximum " + MAX_BLOCKS + " blocks exceeded");
 		//read four ints at a time, exceptions caught below
 		initial_blocks[num_blocks++] = toBits(scanner.nextInt(), scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
 	    }
@@ -234,7 +233,7 @@ public class Board {
 	    for (int c = 0; c < cols; c++) {
 		s = "_";
 		for (int i = 0; i < num_blocks; i++)
-		    if (!isZero( (blocks[i]).and(toBits(1, 1, r, c)) ))
+		    if (blocks[i] != null && !isZero( (blocks[i]).and(toBits(1, 1, r, c)) ))
 			s = "" + i;
 		out += s;
 	    }
